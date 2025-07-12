@@ -1,0 +1,53 @@
+body {
+    background-color: #accceb;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.container {
+    background: rgb(248, 245, 245);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Fixed opacity from 0 to 0.1 */
+    width: 400px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.task-form {
+    display: flex;
+    gap: 10px;
+}
+
+.task-form input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Fixed selector from .task form button to .task-form button */
+.task-form button {
+    padding: 10px 15px;
+    background-color: #00ff04;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Fixed ID selector from #tasklist to #taskList to match JS */
+#taskList {
+    margin-top: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+#taskList li {
+    background: #f8f9fa;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
