@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProfileCard Generator</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  margin: 0;
+  padding: 20px;
+}
+.container {
+  max-width: 900px;margin: auto;text-align: center;
+}
+form {
+  background: white;padding: 20px;margin-bottom: 30px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+input, textarea, select, button {
+  display: block;width: 100%;margin: 10px 0;padding: 10px;
+}
+.cards-container {
+  display: flex;flex-wrap: wrap;gap: 20px;justify-content: center;
+}
+.card {
+  background: white;width: 200px;padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);text-align: center;
+  border-radius: 8px;position: relative;
+}
+.card.dark {
+  background: #333;color: white;
+}
+.card img {
+  width: 100px;height: 100px;object-fit: cover;
+}
+.card img.circle {
+  border-radius: 50%;
+}
+.card img.square {
+  border-radius: 0;
+}
+.card button {
+  width: 45%;margin: 5px;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form id="cardForm">
+      <input type="text" id="name" placeholder="Enter your name" required />
+      <textarea id="bio" placeholder="Enter a short bio"></textarea>
+      <input type="file" id="imageUpload" accept="image/*" />
+      <select id="shape">
+        <option value="square">Square</option>
+        <option value="circle">Circle</option>
+      </select>
+      <button type="submit">Generate Card</button>
+    </form>
+
+    <div id="cardsContainer" class="cards-container"></div>
+  </div>
+  <script>
+    document.getElementById("cardForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const bio = document.getElementById("bio").value;
+  const shape = document.getElementById("shape").value;
+  const imageInput = document.getElementById("imageUpload");
+  const cardsContainer = document.getElementById("cardsContainer");
+  const reader = new FileReader();
+
+  reader.onload = function () {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const img = document.createElement("img");
+    img.src = reader.result;
+    img.className = shape;
+
+    const h3 = document.createElement("h3");
+    h3.textContent = name;
+
+    const p = document.createElement("p");
+    p.textContent = bio;
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.textContent = "Toggle Theme";
+    toggleBtn.onclick = () => card.classList.toggle("dark");
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.onclick = () => card.remove();
+
+    card.appendChild(img);
+    card.appendChild(h3);
+    card.appendChild(p);
+    card.appendChild(toggleBtn);
+    card.appendChild(deleteBtn);
+
+    cardsContainer.appendChild(card);
+
+    document.getElementById("cardForm").reset();
+  };
+
+  if (imageInput.files[0]) {
+    reader.readAsDataURL(imageInput.files[0]);
+  }
+});
+  </script>
+</body>
+</html>
